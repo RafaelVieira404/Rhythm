@@ -2,16 +2,17 @@ package com.example.yoursong;
 
 import android.widget.TextView;
 
-public class SetScreenArguments extends MainActivity {
+public class SetScreenArguments extends MainActivity{
     public static class getScreenElements {
-        TextView teste1;
+        TextView test;
 
-        public void setArguments (String string){
-            getScreenElements getScreenElements = new getScreenElements();
-            getScreenElements.teste1.findViewById(R.id.teste_1);
-            teste1.setText(string);
-        }
+
     }
 
+    public static void setScreen(String s) {
+        getScreenElements getScreenElements = new getScreenElements();
+        getScreenElements.test.setText(s);
+
+    }
 
 }
