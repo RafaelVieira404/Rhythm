@@ -1,10 +1,10 @@
 package com.example.network;
 
-import android.util.Log;
+import com.example.database.StudioGhMovies;
 
-import com.example.yoursong.GetAilmentData;
-import com.example.yoursong.SetScreenArguments;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,26 +18,34 @@ public class ApiModule {
     public static class retrofit {
 
         public interface GetAilment  {
-            @GET("ailments/{id}")
-            Call<GetAilmentData> GET_AILMENT_DATA_CALL(@Path("id") String test);
+            @GET("/{id}/")
+            Call<StudioGhMovies> GET_AILMENT_DATA_CALL(@Path("id") String test);
         }
 
         public void getApiClient() {
             Retrofit retrofit = ApiClient.getApiRetrofit();
             GetAilment getAilment = retrofit.create(GetAilment.class);
-            getAilment.GET_AILMENT_DATA_CALL("5").enqueue(new Callback<GetAilmentData>() {
+            getAilment.GET_AILMENT_DATA_CALL("films").enqueue(new Callback<StudioGhMovies>() {
                 @Override
-                public void onResponse(Call<GetAilmentData> call, Response<GetAilmentData> response) {
+                public void onResponse(Call<StudioGhMovies> call, Response<StudioGhMovies> response) {
                     if (response.body() != null) {
-                        GetAilmentData getAilmentData = response.body();
-                        String name = getAilmentData.getName();
-                        SetScreenArguments.setScreen(name);
+                        StudioGhMovies studioGhMovies = new StudioGhMovies(
+                                response.body().getId(), response.body().getTitle(),
+                                response.body().getOriginalTitle(), response.body().getOriginalTitleRomanticised(),
+                                response.body().getDescription(), response.body().getDirector(),
+                                response.body().getProducer(), response.body().getReleaseDate(),
+                                response.body().getRunningTime(), response.body().getRtScore(),
+                                response.body().getPeopleUrl()
+                        );
+
+                        System.out.println(studioGhMovies);
 
                     }
+
                 }
 
                 @Override
-                public void onFailure(Call<GetAilmentData> call, Throwable throwable) {
+                public void onFailure(Call<StudioGhMovies> call, Throwable throwable) {
 
                 }
 

@@ -1,4 +1,4 @@
-package com.example.yoursong;
+package com.example.studioghibliapp;
 
 import org.junit.Test;
 
