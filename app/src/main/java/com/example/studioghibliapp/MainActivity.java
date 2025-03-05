@@ -2,6 +2,7 @@ package com.example.studioghibliapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.example.yoursong.R;
 public class MainActivity extends AppCompatActivity {
 
     ApiModule.retrofit retrofit = new ApiModule.retrofit();
+    SetScreenArguments setScreenArguments = new SetScreenArguments();
     View view;
 
 
@@ -32,4 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         retrofit.getApiClient();
     }
+
+
 }

@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient implements Serializable {
 
     public static final String BASE_URL = "https://ghibliapi.dev";
-    public static Retrofit retrofit = null;
+    public static Retrofit retrofit;
 
     public static Retrofit getApiRetrofit() {
         if (retrofit == null) {

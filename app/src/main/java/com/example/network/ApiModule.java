@@ -1,6 +1,13 @@
 package com.example.network;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import com.example.database.StudioGhMovies;
+import com.example.studioghibliapp.SetScreenArguments;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 
 import java.util.ArrayList;
@@ -11,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class ApiModule {
@@ -18,38 +26,31 @@ public class ApiModule {
     public static class retrofit {
 
         public interface GetAilment  {
-            @GET("/{id}/")
-            Call<StudioGhMovies> GET_AILMENT_DATA_CALL(@Path("id") String test);
+            @GET("/films")
+            Call<List<StudioGhMovies>> GET_AILMENT_DATA_CALL();
         }
 
         public void getApiClient() {
             Retrofit retrofit = ApiClient.getApiRetrofit();
             GetAilment getAilment = retrofit.create(GetAilment.class);
-            getAilment.GET_AILMENT_DATA_CALL("films").enqueue(new Callback<StudioGhMovies>() {
+            Call<List<StudioGhMovies>> studioGhMoviesCall = getAilment.GET_AILMENT_DATA_CALL();
+            studioGhMoviesCall.enqueue(new Callback<List<StudioGhMovies>>() {
                 @Override
-                public void onResponse(Call<StudioGhMovies> call, Response<StudioGhMovies> response) {
-                    if (response.body() != null) {
-                        StudioGhMovies studioGhMovies = new StudioGhMovies(
-                                response.body().getId(), response.body().getTitle(),
-                                response.body().getOriginalTitle(), response.body().getOriginalTitleRomanticised(),
-                                response.body().getDescription(), response.body().getDirector(),
-                                response.body().getProducer(), response.body().getReleaseDate(),
-                                response.body().getRunningTime(), response.body().getRtScore(),
-                                response.body().getPeopleUrl()
-                        );
+                public void onResponse(Call<List<StudioGhMovies>> call, Response<List<StudioGhMovies>> response) {
+                    if(response.isSuccessful()) {
+                        List<StudioGhMovies> studioGhMovies = response.body();
 
-                        System.out.println(studioGhMovies);
-
+                        for (StudioGhMovies studioGh : studioGhMovies) {
+                            Log.i(TAG, String.format("%s " + "  %s", studioGh.getId(), studioGh.getOriginal_title()));
+                        }
                     }
-
                 }
 
                 @Override
-                public void onFailure(Call<StudioGhMovies> call, Throwable throwable) {
-
+                public void onFailure(Call<List<StudioGhMovies>> call, Throwable throwable) {
+                    Log.e(TAG,"Error: " + throwable.getMessage());
                 }
-
-            } );
+            });
         }
     }
 }
