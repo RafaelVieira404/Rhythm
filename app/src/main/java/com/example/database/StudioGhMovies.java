@@ -11,6 +11,7 @@ public class StudioGhMovies implements Parcelable {
     private String title;
     private String original_title;
     private String original_title_romanised;
+    private String image;
     private String movie_banner;
     private String description;
     private String director;
@@ -21,12 +22,13 @@ public class StudioGhMovies implements Parcelable {
     ArrayList<String> people;
 
 
-    public StudioGhMovies (String id, String title, String original_title, String original_title_romanised, String movie_banner,
+    public StudioGhMovies (String id, String title, String original_title, String original_title_romanised,String image, String movie_banner,
                           String description, String director, String producer, int release_date, int running_time, int rt_score, ArrayList<String> people) {
         this.id = id;
         this.title = title;
         this.original_title = original_title;
         this.original_title_romanised = original_title_romanised;
+        this.image = image;
         this.movie_banner = movie_banner;
         this.description = description;
         this.director = director;
@@ -42,6 +44,7 @@ public class StudioGhMovies implements Parcelable {
         title = in.readString();
         original_title = in.readString();
         original_title_romanised = in.readString();
+        image = in.readString();
         movie_banner = in.readString();
         description = in.readString();
         director = in.readString();
@@ -59,6 +62,7 @@ public class StudioGhMovies implements Parcelable {
         dest.writeString(title);
         dest.writeString(original_title);
         dest.writeString(original_title_romanised);
+        dest.writeString(image);
         dest.writeString(movie_banner);
         dest.writeString(description);
         dest.writeString(director);
@@ -182,5 +186,13 @@ public class StudioGhMovies implements Parcelable {
 
     public void setMovie_banner(String movie_banner) {
         this.movie_banner = movie_banner;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
