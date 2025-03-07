@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_frame">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:layout_margin="8dp"
-        app:cardCornerRadius="15dp"
-        >
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="15dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/question_format_display"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
@@ -25,48 +24,69 @@
 
             <ImageView
                 android:id="@+id/image_movie"
-                android:layout_width="540px"
-                android:layout_height="810px"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="400px"
+                android:layout_height="590px"
+                android:layout_margin="6dp"
                 android:background="@drawable/round_corners"
-                />
+                android:contentDescription="TODO"
+                android:scaleType="centerCrop"
+                tools:ignore="ImageContrastCheck" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/image_movie"
-                android:layout_alignTop="@id/image_movie"
-                >
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/title_1"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginEnd="12dp"
-                    tools:text="AAAAA"
-                    />
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textStyle="bold"
+                    tools:text="TITLE" />
 
                 <TextView
                     android:id="@+id/original_title"
-                    android:layout_below="@+id/title_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginEnd="12dp"
-                    tools:text="AAAAA"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="Secondary Title" />
+
+                <TextView
+                    android:id="@+id/movie_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="info"
+
+
                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/movie_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        tools:text="Description" />
+                </LinearLayout>
+
+            </LinearLayout>
 
 
-            </RelativeLayout>
+        </LinearLayout>
 
-
-        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

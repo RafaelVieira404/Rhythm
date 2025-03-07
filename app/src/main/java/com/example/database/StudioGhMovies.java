@@ -16,14 +16,14 @@ public class StudioGhMovies implements Parcelable {
     private String description;
     private String director;
     private String producer;
-    private int release_date;
+    private String release_date;
     private int running_time;
-    private int rt_score;
+    private String rt_score;
     ArrayList<String> people;
 
 
     public StudioGhMovies (String id, String title, String original_title, String original_title_romanised,String image, String movie_banner,
-                          String description, String director, String producer, int release_date, int running_time, int rt_score, ArrayList<String> people) {
+                          String description, String director, String producer, String release_date, int running_time, String rt_score, ArrayList<String> people) {
         this.id = id;
         this.title = title;
         this.original_title = original_title;
@@ -49,9 +49,9 @@ public class StudioGhMovies implements Parcelable {
         description = in.readString();
         director = in.readString();
         producer = in.readString();
-        release_date = in.readInt();
+        release_date = in.readString();
         running_time = in.readInt();
-        rt_score = in.readInt();
+        rt_score = in.readString();
         people = new ArrayList<>();
         in.readStringList(people);
     }
@@ -67,9 +67,9 @@ public class StudioGhMovies implements Parcelable {
         dest.writeString(description);
         dest.writeString(director);
         dest.writeString(producer);
-        dest.writeInt(release_date);
+        dest.writeString(release_date);
         dest.writeInt(running_time);
-        dest.writeInt(rt_score);
+        dest.writeString(rt_score);
         dest.writeStringList(people);
     }
 
@@ -148,11 +148,11 @@ public class StudioGhMovies implements Parcelable {
         this.producer = producer;
     }
 
-    public int getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(int release_date) {
+    public void setRelease_date(String release_date) {
         this.release_date = release_date;
     }
 
@@ -164,11 +164,11 @@ public class StudioGhMovies implements Parcelable {
         this.running_time = running_time;
     }
 
-    public int getRt_score() {
+    public String getRt_score() {
         return rt_score;
     }
 
-    public void setRt_score(int rt_score) {
+    public void setRt_score(String rt_score) {
         this.rt_score = rt_score;
     }
 
