@@ -1,6 +1,7 @@
 package com.example.network;
 
 import com.example.database.StudioGhMovies;
+import com.example.database.StudioGhPeople;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -14,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public class ApiClient implements Serializable {
 
@@ -41,6 +43,18 @@ public class ApiClient implements Serializable {
         @GET("/films")
         Call<List<StudioGhMovies>> GET_AILMENT_DATA_CALL();
     }
+    public interface GetPeopleData  {
+        @GET("/{people}")
+        Call<List<StudioGhPeople>> GET_PEOPLE_DATA_CALL(@Path("people") String people);
+    }
+
+    public GetDataFilms getApiDataFilm() {
+        return getApiRetrofit().create(GetDataFilms.class);
+    }
+
+//    public GetPeopleData getApiDataPeople(String path) {
+//        return getApiRetrofit().create(GetDataPeople.class);
+//    }
 
     public static OkHttpClient client() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

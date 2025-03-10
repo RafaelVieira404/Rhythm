@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.database.StudioGhMovies;
 import com.example.network.ApiClient;
+import com.example.network.GetDataFilms;
 import com.example.yoursong.R;
 
 import java.util.ArrayList;
@@ -47,21 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public MainActivity() {
 
-    }
-
-    public void getApiClient() {
+    private void getApiClient() {
         Retrofit retrofit = ApiClient.getApiRetrofit();
-        ApiClient.GetAilment getAilment = retrofit.create(ApiClient.GetAilment.class);
-        Call<List<StudioGhMovies>> studioGhMoviesCall = getAilment.GET_AILMENT_DATA_CALL();
+        GetDataFilms DataFilms = retrofit.create(GetDataFilms.class);
+        Call<List<StudioGhMovies>> studioGhMoviesCall = DataFilms.GET_AILMENT_DATA_CALL();
         studioGhMoviesCall.enqueue(new Callback<List<StudioGhMovies>>() {
             @Override
             public void onResponse(Call<List<StudioGhMovies>> call, Response<List<StudioGhMovies>> response) {
                 if (response.isSuccessful()) {
                     ApiData = response.body();
                     Log.i(TAG, "Successful: " + response.message());
-                    recyclerView(view);
+                    recyclerView();
                 } else {
                     Log.e(TAG, "Error: " + response.errorBody());
                 }
@@ -74,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void recyclerView(View view) {
-        RecyclerViewSetup recyclerViewSetup = new RecyclerViewSetup(ApiData);
+    private void recyclerView() {
+        RecyclerViewMain recyclerViewSetup = new RecyclerViewMain(ApiData);
         RecyclerView recyclerView = this.findViewById(R.id.recycler_layout);
         recyclerView.setAdapter(recyclerViewSetup);
     }

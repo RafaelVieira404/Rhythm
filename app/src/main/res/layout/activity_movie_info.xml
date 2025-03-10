@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/movie_info_main"
+    >
+
+    <ImageView
+        android:id="@+id/image_banner"
+        android:layout_width="match_parent"
+        android:layout_height="500px" />
+
+    <ImageView
+        android:id="@+id/movie_cover"
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:layout_alignBottom="@+id/image_banner"
+        android:layout_margin="15dp" />
+
+    <TextView
+        android:id="@+id/title_movie_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/movie_cover"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@+id/movie_cover"
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        android:textStyle="bold"
+        tools:text="Title Movie original" />
+
+    <TextView
+        android:id="@+id/original_movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_movie_info"
+        android:layout_marginRight="12dp"
+        android:layout_toEndOf="@id/movie_cover"
+        android:background="@android:color/transparent"
+        android:paddingStart="5dp"
+        android:textStyle="bold"
+        tools:text="Title Movie" />
+
+    <TextView
+        android:id="@+id/movie_description_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/original_movie_title"
+        android:layout_toEndOf="@id/movie_cover"
+        android:paddingStart="5dp"
+        tools:text="Info" />
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/image_banner">
+
+        <TextView
+            android:id="@+id/toolbar_text_one"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/toolbar_text_two"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/toolbar_text_three"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="5dp" />
+
+    </Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            tools:text="Description" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            tools:text="Title" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:orientation="horizontal"
+                android:id="@+id/recycler_title_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/recycler_view_horizontal" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            tools:text="Title_2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
+            android:id="@+id/recycler_title_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/recycler_view_horizontal" />
+    </LinearLayout>
+
+
+</RelativeLayout>
