@@ -39,14 +39,7 @@ public class ApiClient implements Serializable {
         return retrofit;
     }
 
-    public interface GetAilment  {
-        @GET("/films")
-        Call<List<StudioGhMovies>> GET_AILMENT_DATA_CALL();
-    }
-    public interface GetPeopleData  {
-        @GET("/{people}")
-        Call<List<StudioGhPeople>> GET_PEOPLE_DATA_CALL(@Path("people") String people);
-    }
+
 
     public GetDataFilms getApiDataFilm() {
         return getApiRetrofit().create(GetDataFilms.class);

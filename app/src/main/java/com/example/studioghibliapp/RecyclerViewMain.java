@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,26 +23,13 @@ import java.util.List;
 public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.RecyclerAdapterViewHolder> {
 
     private List<StudioGhMovies> localDataset;
+    public static final String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
 
     public RecyclerViewMain(List<StudioGhMovies> apiData) {
         localDataset = apiData;
     }
 
-    public String setInfo(String releaseDate, int runningTime, String rtScore) {
-        String string = String.format("Release: %s    Time: %d  \nScoreRT: ", releaseDate, runningTime) + rtScore + "%";
-        return string;
-    }
-    public String setDescription(String description) {
-        int end = description.length();
-        String string;
-        if (end > 100) {
-            string = String.format("Description:" + " %s...", description.substring(0, 100));
-        } else {
-            string = String.format("Description:" + "%s", description.substring(0, end));
-        }
-        return string;
 
-    }
 
     public void setImageView(StudioGhMovies data,  ImageView imageView) {
         Picasso.get().load(data.getImage()).transform(new RoundCornerPicasso(30,0)).into(imageView);
@@ -69,7 +57,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
         return localDataset.size();
     }
 
-    class RecyclerAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class RecyclerAdapterViewHolder extends RecyclerView.ViewHolder{
 
         TextView movie_title_original;
         TextView movie_title_romanised;
@@ -92,17 +80,13 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
         public void bind(StudioGhMovies data) {
             movie_title_romanised.setText(data.getOriginal_title_romanised());
             movie_title_original.setText(data.getOriginal_title());
-            movie_info.setText(setInfo(data.getRelease_date(), data.getRunning_time(), data.getRt_score()));
-            movie_description.setText(setDescription(data.getDescription()));
+            movie_info.setText(data.setInfoText(data.getRelease_date(), data.getRunning_time(), data.getRt_score()));
+            movie_description.setText(data.setDescriptionText(data.getDescription()));
             setImageView(data, movie_image);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), MovieActivity.class)
-                    .putExtra(MovieActivity.EXTRA_MOVIE_DATA, localDataset.get(getLayoutPosition()));
-            v.getContext().startActivity(intent);
-
+            cardView.setOnClickListener(v -> {
+                Intent intent = MovieActivity.createIntentToEndGame(itemView.getContext(), data);
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }
