@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/movie_cover"
-        android:layout_width="350px"
-        android:layout_height="400px"
+        android:layout_width="400px"
+        android:layout_height="450px"
         android:layout_alignBottom="@+id/image_banner"
         android:background="@drawable/banner_movie"
         android:elevation="8dp"
@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/movie_description_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/original_movie_title"
         android:layout_toEndOf="@id/movie_cover"
@@ -76,12 +76,14 @@
         android:shadowRadius="2"
         android:textSize="12sp"
         android:paddingStart="5dp"
+        android:layout_marginRight="12dp"
         tools:text="Info" />
 
     <Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="30dp"
+        android:background="@color/cardview_shadow_end_color"
         android:layout_below="@id/image_banner">
 
         <TextView
@@ -89,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="12sp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp" />
 
@@ -96,6 +99,7 @@
             android:id="@+id/toolbar_text_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp" />
@@ -104,6 +108,7 @@
             android:id="@+id/toolbar_text_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp" />
@@ -122,7 +127,10 @@
             android:id="@+id/movie_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:justificationMode="inter_character"
+            android:textSize="15sp"
             tools:text="Description" />
 
         <TextView
@@ -132,14 +140,13 @@
             tools:text="Title" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:orientation="horizontal"
-                android:id="@+id/recycler_title_one"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_view_horizontal" />
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_title_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/recycler_view_horizontal" />
 
         <TextView
             android:layout_width="match_parent"

@@ -19,10 +19,9 @@ import retrofit2.http.Path;
 
 public class ApiClient implements Serializable {
 
-    public static final String BASE_URL = "https://ghibliapi.dev";
     public static Retrofit retrofit;
 
-    public static Retrofit getApiRetrofit() {
+    public static Retrofit getApiRetrofit(final String BASE_URL) {
         if (retrofit == null) {
             synchronized (ApiClient.class) {
                 Gson gson = new GsonBuilder()
@@ -41,13 +40,6 @@ public class ApiClient implements Serializable {
 
 
 
-    public GetDataFilms getApiDataFilm() {
-        return getApiRetrofit().create(GetDataFilms.class);
-    }
-
-//    public GetPeopleData getApiDataPeople(String path) {
-//        return getApiRetrofit().create(GetDataPeople.class);
-//    }
 
     public static OkHttpClient client() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

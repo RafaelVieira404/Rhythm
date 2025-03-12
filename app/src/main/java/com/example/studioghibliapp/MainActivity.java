@@ -28,6 +28,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> ApiData = new ArrayList<>();
     View view;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getApiClient() {
-        Retrofit retrofit = ApiClient.getApiRetrofit();
+        Retrofit retrofit = ApiClient.getApiRetrofit(URL);
         GetDataFilms DataFilms = retrofit.create(GetDataFilms.class);
         Call<List<StudioGhMovies>> studioGhMoviesCall = DataFilms.GET_AILMENT_DATA_CALL();
         studioGhMoviesCall.enqueue(new Callback<List<StudioGhMovies>>() {

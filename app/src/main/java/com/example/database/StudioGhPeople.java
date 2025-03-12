@@ -100,4 +100,9 @@ public class StudioGhPeople implements Parcelable {
     public void setHairColor(String hairColor) {
         this.hairColor = hairColor;
     }
+
+    public String setInfoText(String gender, int age, String hairColor, String eyeColor) {
+        String string = String.format("Gender: %s" + "\n" + "Age: %d" + "\n" + "HairColor: %s" + "\n" + "EyeColor: %s" + "\n", gender, age, hairColor, eyeColor );
+        return string;
+    }
 }

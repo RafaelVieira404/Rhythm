@@ -6,13 +6,17 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-public class RoundCornerPicasso implements Transformation {
+public class PicassoSettings implements Transformation {
     private final int radius;
     private final int margin;
 
-    public RoundCornerPicasso(int radius, int margin) {
+    public PicassoSettings(int radius, int margin) {
         this.radius = radius;
         this.margin = margin;
     }
@@ -34,6 +38,19 @@ public class RoundCornerPicasso implements Transformation {
         source.recycle();
 
         return output;
+    }
+
+    public void loadImageIntoContainer(final ImageView imageView, final String imageID, final PicassoSettings picassoSettings){
+        imageView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int width = imageView.getWidth();
+                int height = imageView.getHeight();
+
+                Picasso.get().load(imageID).resize(width,height).transform(picassoSettings).into(imageView);
+                imageView.removeOnLayoutChangeListener(this);
+            }
+        });
     }
 
     @Override

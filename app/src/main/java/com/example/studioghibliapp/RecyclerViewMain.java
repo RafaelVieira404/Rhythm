@@ -1,6 +1,5 @@
 package com.example.studioghibliapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,20 +27,12 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
         localDataset = apiData;
     }
 
-
-
-    public void setImageView(StudioGhMovies data,  ImageView imageView) {
-        Picasso.get().load(data.getImage()).transform(new RoundCornerPicasso(30,0)).into(imageView);
-    }
-
     @Override
     public RecyclerAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.vertical_recycler_view, parent, false);
         return new RecyclerAdapterViewHolder(view);
     }
-
-
 
 
     @Override
@@ -82,9 +72,10 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
             movie_title_original.setText(data.getOriginal_title());
             movie_info.setText(data.setInfoText(data.getRelease_date(), data.getRunning_time(), data.getRt_score()));
             movie_description.setText(data.setDescriptionText(data.getDescription()));
-            setImageView(data, movie_image);
+            PicassoSettings picassoSettings = new PicassoSettings(30,0);
+            picassoSettings.loadImageIntoContainer(movie_image, data.getImage(), picassoSettings);
             cardView.setOnClickListener(v -> {
-                Intent intent = MovieActivity.createIntentToEndGame(itemView.getContext(), data);
+                Intent intent = MovieActivity.createIntentToMovieInfo(itemView.getContext(), data);
                 itemView.getContext().startActivity(intent);
             });
         }

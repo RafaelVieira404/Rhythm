@@ -26,14 +26,13 @@
             <ImageView
                 android:id="@+id/image_movie"
                 android:layout_width="400px"
-                android:layout_height="590px"
+                android:layout_height="500px"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/banner_movie"
                 android:contentDescription="TODO"
-                android:scaleType="centerCrop"
                 tools:ignore="ImageContrastCheck" />
 
             <LinearLayout

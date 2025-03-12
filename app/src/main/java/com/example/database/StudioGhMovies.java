@@ -137,7 +137,7 @@ public class StudioGhMovies implements Parcelable {
     }
 
     public void setDirector(String director) {
-        this.director = director;
+        this.director = director.substring(0, 1).toUpperCase();
     }
 
     public String getProducer() {
@@ -145,7 +145,7 @@ public class StudioGhMovies implements Parcelable {
     }
 
     public void setProducer(String producer) {
-        this.producer = producer;
+        this.producer = producer.substring(0, 1).toUpperCase();
     }
 
     public String getRelease_date() {
