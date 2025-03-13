@@ -200,15 +200,15 @@ public class StudioGhMovies implements Parcelable {
         String string = String.format("Release: %s    Time: %d  \nScoreRT: ", releaseDate, runningTime) + rtScore + "%";
         return string;
     }
-    public String setDescriptionText(String description) {
-        int end = description.length();
-        String string;
-        if (end > 100) {
-            string = String.format("Description:" + " %s...", description.substring(0, 100));
-        } else {
-            string = String.format("Description:" + "%s", description.substring(0, end));
-        }
-        return string;
-
-    }
+//    public String setDescriptionText(String description) {
+//        int end = description.length();
+//        String string;
+//        if (end > 100) {
+//            string = String.format("Description:" + " %s...", description.substring(0, 100));
+//        } else {
+//            string = String.format("Description:" + "%s", description.substring(0, end));
+//        }
+//        return string;
+//
+//    }
 }

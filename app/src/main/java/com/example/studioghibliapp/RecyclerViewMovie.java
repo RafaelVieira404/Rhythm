@@ -9,10 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.database.StudioGhMovies;
 import com.example.database.StudioGhPeople;
 import com.example.yoursong.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -63,7 +61,7 @@ public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.Re
 
         public void bind(StudioGhPeople data) {
             peopleName.setText(data.getName());
-            peopleInfo.setText(data.setInfoText(data.getGender(), data.getAge(), data.getHairColor(), data.getEyeColor()));
+            peopleInfo.setText(data.setInfoText(data.getGender(), data.getAge(), data.getHair_color(), data.getEye_color()));
         }
     }
 }

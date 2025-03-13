@@ -11,16 +11,16 @@ public class StudioGhPeople implements Parcelable {
     private String name;
     private String gender;
     private int age;
-    private String eyeColor;
-    private String hairColor;
+    private String eye_color;
+    private String hair_color;
 
-    public StudioGhPeople(String id, String name, String gender, int age, String eyeColor, String hairColor) {
+    public StudioGhPeople(String id, String name, String gender, int age, String eye_color, String hair_color) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.eyeColor = eyeColor;
-        this.hairColor = hairColor;
+        this.eye_color = eye_color;
+        this.hair_color = hair_color;
     }
 
     protected StudioGhPeople(Parcel in) {
@@ -28,8 +28,8 @@ public class StudioGhPeople implements Parcelable {
         this.name = in.readString();
         this.gender = in.readString();
         this.age = in.readInt();
-        this.eyeColor = in.readString();
-        this.hairColor = in.readString();
+        this.eye_color = in.readString();
+        this.hair_color = in.readString();
     }
 
     public static final Creator<StudioGhPeople> CREATOR = new Creator<StudioGhPeople>() {
@@ -51,6 +51,12 @@ public class StudioGhPeople implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(gender);
+        dest.writeInt(age);
+        dest.writeString(eye_color);
+        dest.writeString(hair_color);
     }
 
     public String getId() {
@@ -85,20 +91,20 @@ public class StudioGhPeople implements Parcelable {
         this.age = age;
     }
 
-    public String getEyeColor() {
-        return eyeColor;
+    public String getEye_color() {
+        return eye_color;
     }
 
-    public void setEyeColor(String eyeColor) {
-        this.eyeColor = eyeColor;
+    public void setEye_color(String eye_color) {
+        this.eye_color = eye_color;
     }
 
-    public String getHairColor() {
-        return hairColor;
+    public String getHair_color() {
+        return hair_color;
     }
 
-    public void setHairColor(String hairColor) {
-        this.hairColor = hairColor;
+    public void setHair_color(String hair_color) {
+        this.hair_color = hair_color;
     }
 
     public String setInfoText(String gender, int age, String hairColor, String eyeColor) {

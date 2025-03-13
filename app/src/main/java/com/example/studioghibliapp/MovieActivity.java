@@ -34,9 +34,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MovieActivity extends AppCompatActivity {
+    private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> apiDataMovie = new ArrayList<>();
     private static List<StudioGhPeople> studioGhPeople = new ArrayList<>();
-    private static String[] peopleDataURL = new String[1];
+    private static String[] peopleDataURL;
+    private static int arraySize = 0;
     private static final int INDEX = 0;
 
     public static Intent createIntentToMovieInfo(Context context, StudioGhMovies ghMovies) {
@@ -44,16 +46,17 @@ public class MovieActivity extends AppCompatActivity {
                 .putExtra(RecyclerViewMain.EXTRA_MOVIE_DATA, ghMovies);
     }
 
-    public static String[] getPeopleDataURL() {
-        return peopleDataURL;
-    }
-
     private static void setPeopleDataURL(String[] peopleDataURL) {
+        arraySize = apiDataMovie.get(INDEX).getPeople().size();
+        peopleDataURL = new String[arraySize];
         for (int i = 0; i < apiDataMovie.get(INDEX).getPeople().size(); i+=1) {
-            if (apiDataMovie.get(INDEX).getPeople().get(i) != "https://ghibliapi.dev/people/") {
-                peopleDataURL[i] = String.valueOf(apiDataMovie.get(INDEX).getPeople());
+            if (apiDataMovie.get(INDEX).getPeople().get(i).equals("https://ghibliapi.dev/people/")) {
+                break;
+
+            } else {
+                peopleDataURL[i] = apiDataMovie.get(INDEX).getPeople().get(i) + "/";
                 Log.println(Log.INFO, TAG, String.valueOf(apiDataMovie.get(INDEX).getPeople().get(i)));
-            } else return;
+            }
         }
         MovieActivity.peopleDataURL = peopleDataURL;
     }
@@ -73,9 +76,9 @@ public class MovieActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         apiDataMovie.add(INDEX, intent.getParcelableExtra(EXTRA_MOVIE_DATA));
-        setupView(apiDataMovie, INDEX);
         setPeopleDataURL(peopleDataURL);
-        getPeopleData(getPeopleDataURL());
+        getPeopleData(peopleDataURL);
+        setupView(apiDataMovie, INDEX);
         recycleView();
     }
 
@@ -113,26 +116,27 @@ public class MovieActivity extends AppCompatActivity {
 
     }
 
-    private void getPeopleData(String[] URL) {
-        if (getPeopleDataURL() != null) {
-            for (int i = 0; i < URL.length; i += 1) {
-                final int index = i;
-                Retrofit retrofit = ApiClient.getApiRetrofit(URL[i]);
+    private void getPeopleData(String[] link) {
+        if (link[0] != null) {
+            for (int i = 0; i < link.length; i += 1) {
+                Retrofit retrofit = ApiClient.getApiRetrofit(URL);
                 GetDataPeople getDataPeople = retrofit.create(GetDataPeople.class);
-                Call<List<StudioGhPeople>> studioGhPeopleCall = getDataPeople.GET_DATA_PEOPLE();
-                studioGhPeopleCall.enqueue(new Callback<List<StudioGhPeople>>() {
+                Call<List<StudioGhPeople>> listCall = getDataPeople.GET_DATA_PEOPLE(link[i].toString());
+                listCall.enqueue(new Callback<List<StudioGhPeople>>() {
                     @Override
                     public void onResponse(Call<List<StudioGhPeople>> call, Response<List<StudioGhPeople>> response) {
                         if (response.isSuccessful()) {
-                            studioGhPeople.set(index, (StudioGhPeople) response.body());
+                            studioGhPeople.addAll(response.body());
                             Log.i(TAG, "Successful: " + response.message());
 
-                        } else Log.e(TAG, "Error: " + response.errorBody());
+                        } else Log.e(TAG, "Error: " + response.code());
+                        Log.e(TAG, "Error: " + response.errorBody());
                     }
+
 
                     @Override
                     public void onFailure(Call<List<StudioGhPeople>> call, Throwable throwable) {
-                        Log.e(TAG, "Error: " + throwable.getMessage());
+                        Log.e(TAG, "Request failed: " + throwable.getMessage());
                     }
                 });
             }

@@ -52,7 +52,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
         TextView movie_title_original;
         TextView movie_title_romanised;
         TextView movie_info;
-        TextView movie_description;
+//        TextView movie_description;
         ImageView movie_image;
         CardView cardView;
 
@@ -62,7 +62,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
             movie_title_romanised = itemView.findViewById(R.id.title);
             movie_info = itemView.findViewById(R.id.movie_info);
             movie_image = itemView.findViewById(R.id.image_movie);
-            movie_description = itemView.findViewById(R.id.movie_description);
+//            movie_description = itemView.findViewById(R.id.movie_description);
             cardView = itemView.findViewById(R.id.card_view);
 
         }
@@ -71,8 +71,8 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
             movie_title_romanised.setText(data.getOriginal_title_romanised());
             movie_title_original.setText(data.getOriginal_title());
             movie_info.setText(data.setInfoText(data.getRelease_date(), data.getRunning_time(), data.getRt_score()));
-            movie_description.setText(data.setDescriptionText(data.getDescription()));
-            PicassoSettings picassoSettings = new PicassoSettings(30,0);
+//            movie_description.setText(data.setDescriptionText(data.getDescription()));
+            PicassoSettings picassoSettings = new PicassoSettings(6,0);
             picassoSettings.loadImageIntoContainer(movie_image, data.getImage(), picassoSettings);
             cardView.setOnClickListener(v -> {
                 Intent intent = MovieActivity.createIntentToMovieInfo(itemView.getContext(), data);

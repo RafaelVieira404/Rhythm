@@ -13,16 +13,20 @@
         android:id="@+id/image_banner"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@drawable/banner_movie" />
+        />
 
     <ImageView
         android:id="@+id/movie_cover"
         android:layout_width="400px"
         android:layout_height="450px"
         android:layout_alignBottom="@+id/image_banner"
-        android:background="@drawable/banner_movie"
         android:elevation="8dp"
-        android:layout_margin="20dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+
+        />
 
     <TextView
         android:id="@+id/title_movie_info"
@@ -32,11 +36,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="12dp"
         android:layout_toEndOf="@+id/movie_cover"
-        android:background="@color/cardview_shadow_end_color"
+        android:elevation="8dp"
         android:textColor="@color/white"
         android:shadowColor="@color/black"
-        android:shadowDx="2"
-        android:shadowDy="2"
+        android:shadowDx="3"
+        android:shadowDy="3"
         android:shadowRadius="2"
         android:padding="5dp"
         android:textStyle="bold"
@@ -49,12 +53,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_movie_info"
         android:layout_marginRight="12dp"
+        android:elevation="8dp"
         android:layout_toEndOf="@id/movie_cover"
-        android:background="@color/cardview_shadow_end_color"
         android:textColor="@color/white"
         android:shadowColor="@color/black"
-        android:shadowDx="2"
-        android:shadowDy="2"
+        android:shadowDx="3"
+        android:shadowDy="3"
         android:shadowRadius="2"
         android:textSize="15sp"
         android:paddingStart="5dp"
@@ -67,60 +71,70 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/original_movie_title"
         android:layout_toEndOf="@id/movie_cover"
-        android:background="@color/cardview_shadow_end_color"
+        android:elevation="8dp"
         android:paddingTop="5dp"
         android:textColor="@color/white"
         android:shadowColor="@color/black"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="2"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1"
         android:textSize="12sp"
         android:paddingStart="5dp"
         android:layout_marginRight="12dp"
         tools:text="Info" />
 
-    <Toolbar
+    <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/cardview_shadow_end_color"
-        android:layout_below="@id/image_banner">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_banner"
+        >
 
         <TextView
             android:id="@+id/toolbar_text_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="12sp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/banner_movie"
+            android:padding="5dp"
+            android:textSize="13sp"
+            tools:text="Director" />
 
         <TextView
             android:id="@+id/toolbar_text_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="8dp"
+            android:padding="5dp"
+            android:background="@drawable/banner_movie"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/toolbar_text_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:background="@drawable/banner_movie"
+            android:textSize="13sp" />
 
-    </Toolbar>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -128,12 +142,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
+            android:paddingHorizontal="5dp"
             android:paddingBottom="5dp"
+            android:elevation="8dp"
+            android:ellipsize="marquee"
             android:justificationMode="inter_character"
             android:textSize="15sp"
             tools:text="Description" />
 
         <TextView
+            android:id="@+id/title_recycler_view_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -149,6 +167,7 @@
             tools:listitem="@layout/recycler_view_horizontal" />
 
         <TextView
+            android:id="@+id/title_recycler_view_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
