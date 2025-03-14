@@ -173,13 +173,13 @@
             android:padding="8dp"
             tools:text="Title_2" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:orientation="horizontal"
-            android:id="@+id/recycler_title_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/recycler_view_horizontal" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:orientation="horizontal"-->
+<!--            android:id="@+id/recycler_title_two"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            tools:listitem="@layout/recycler_view_horizontal" />-->
     </LinearLayout>
 
 

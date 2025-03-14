@@ -24,9 +24,12 @@ import com.example.database.StudioGhPeople;
 import com.example.network.ApiClient;
 import com.example.network.GetDataPeople;
 import com.example.yoursong.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,29 +39,26 @@ import retrofit2.Retrofit;
 public class MovieActivity extends AppCompatActivity {
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> apiDataMovie = new ArrayList<>();
-    private static List<StudioGhPeople> studioGhPeople = new ArrayList<>();
-    private static String[] peopleDataURL;
     private static int arraySize = 0;
-    private static final int INDEX = 0;
 
     public static Intent createIntentToMovieInfo(Context context, StudioGhMovies ghMovies) {
         return new Intent(context, MovieActivity.class)
                 .putExtra(RecyclerViewMain.EXTRA_MOVIE_DATA, ghMovies);
     }
 
-    private static void setPeopleDataURL(String[] peopleDataURL) {
-        arraySize = apiDataMovie.get(INDEX).getPeople().size();
-        peopleDataURL = new String[arraySize];
-        for (int i = 0; i < apiDataMovie.get(INDEX).getPeople().size(); i+=1) {
-            if (apiDataMovie.get(INDEX).getPeople().get(i).equals("https://ghibliapi.dev/people/")) {
+    private static String[] setPeopleDataURL() {
+        arraySize = apiDataMovie.get(0).getPeople().size();
+        String[] peopleDataURL = new String[arraySize];
+        for (int i = 0; i < apiDataMovie.get(0).getPeople().size(); i+=1) {
+            if (apiDataMovie.get(0).getPeople().get(i).equals("https://ghibliapi.dev/people/")) {
                 break;
 
             } else {
-                peopleDataURL[i] = apiDataMovie.get(INDEX).getPeople().get(i) + "/";
-                Log.println(Log.INFO, TAG, String.valueOf(apiDataMovie.get(INDEX).getPeople().get(i)));
+                peopleDataURL[i] = String.valueOf((removeStringUrl(apiDataMovie.get(0).getPeople().get(i))));
+                Log.println(Log.INFO, TAG, String.valueOf(apiDataMovie.get(0).getPeople().get(i)));
             }
         }
-        MovieActivity.peopleDataURL = peopleDataURL;
+        return peopleDataURL;
     }
 
 
@@ -75,11 +75,9 @@ public class MovieActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        apiDataMovie.add(INDEX, intent.getParcelableExtra(EXTRA_MOVIE_DATA));
-        setPeopleDataURL(peopleDataURL);
-        getPeopleData(peopleDataURL);
-        setupView(apiDataMovie, INDEX);
-        recycleView();
+        apiDataMovie.add(0, intent.getParcelableExtra(EXTRA_MOVIE_DATA));
+        setupView(apiDataMovie, 0);
+//        recycleView(getPeopleData(setPeopleDataURL()));
     }
 
     private void setupView(List<StudioGhMovies> data, int index) {
@@ -109,39 +107,54 @@ public class MovieActivity extends AppCompatActivity {
 
     }
 
-    private void recycleView() {
+    private void recycleView(StudioGhPeople[] studioGhPeople) {
         RecyclerViewMovie recyclerViewSetup = new RecyclerViewMovie(studioGhPeople);
         RecyclerView recyclerView1 = this.findViewById(R.id.recycler_title_one);
         recyclerView1.setAdapter(recyclerViewSetup);
 
     }
 
-    private void getPeopleData(String[] link) {
-        if (link[0] != null) {
-            for (int i = 0; i < link.length; i += 1) {
-                Retrofit retrofit = ApiClient.getApiRetrofit(URL);
-                GetDataPeople getDataPeople = retrofit.create(GetDataPeople.class);
-                Call<List<StudioGhPeople>> listCall = getDataPeople.GET_DATA_PEOPLE(link[i].toString());
-                listCall.enqueue(new Callback<List<StudioGhPeople>>() {
-                    @Override
-                    public void onResponse(Call<List<StudioGhPeople>> call, Response<List<StudioGhPeople>> response) {
-                        if (response.isSuccessful()) {
-                            studioGhPeople.addAll(response.body());
-                            Log.i(TAG, "Successful: " + response.message());
+    private static StringBuilder removeStringUrl(String url) {
+        String target = "https://ghibliapi.dev/people/";
+        int startIndex = url.indexOf(target);
+        int stopIndex = startIndex + target.length();
 
-                        } else Log.e(TAG, "Error: " + response.code());
-                        Log.e(TAG, "Error: " + response.errorBody());
+        StringBuilder builder = new StringBuilder(url);
+        if (builder.toString().contains(target)) {
+            builder.delete(startIndex, stopIndex);
+        }
+        return builder;
+    }
+
+    private StudioGhPeople[] getPeopleData(String[] link) {
+        StudioGhPeople[] studioGhPeople = new StudioGhPeople[link.length];
+        for (int i = 0; i < link.length; i += 1) {
+            Retrofit retrofit = ApiClient.getApiRetrofit(URL);
+                GetDataPeople getDataPeople = retrofit.create(GetDataPeople.class);
+                Call<StudioGhPeople> studioGhPeopleCall = getDataPeople.GET_DATA_PEOPLE(link[i]);
+                final int index = i;
+                studioGhPeopleCall.enqueue(new Callback<StudioGhPeople>() {
+                    @Override
+                    public void onResponse(Call<StudioGhPeople> call, Response<StudioGhPeople> response) {
+                        if (response.isSuccessful()) {
+                            Log.i(TAG, "Successful: " + response.message());
+                            studioGhPeople[index] = response.body();
+                        } else {
+                            Log.e(TAG, "Error: " + response.code());
+                            Log.e(TAG, "Error Body: " + (response.errorBody() != null ? response.errorBody().toString() : "No error body"));
+                        }
                     }
 
-
                     @Override
-                    public void onFailure(Call<List<StudioGhPeople>> call, Throwable throwable) {
+                    public void onFailure(Call<StudioGhPeople> call, Throwable throwable) {
                         Log.e(TAG, "Request failed: " + throwable.getMessage());
                     }
                 });
+            try {
+            } catch (Exception e) {
+                Log.e(TAG, "Error creating or enqueuing the network call for link: " + link[i] + " at index: " + i, e);
             }
         }
-
+        return studioGhPeople;
     }
-
 }

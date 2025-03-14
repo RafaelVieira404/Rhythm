@@ -12,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.database.StudioGhPeople;
 import com.example.yoursong.R;
 
-import java.util.List;
-
 public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.RecyclerAdapterViewHolder> {
 
     public static final  String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
 
-    private List<StudioGhPeople> apiDataMovie;
+    private StudioGhPeople[] apiDataMovie;
 
-    public RecyclerViewMovie(List<StudioGhPeople> apiData) {
+    public RecyclerViewMovie(StudioGhPeople[] apiData) {
         apiDataMovie = apiData;
     }
 
@@ -35,14 +33,14 @@ public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterViewHolder holder, final int position) {
-        StudioGhPeople data = apiDataMovie.get(position);
+        StudioGhPeople data = apiDataMovie[position];
         holder.bind(data);
 
     }
 
     @Override
     public int getItemCount() {
-        return apiDataMovie.size();
+        return apiDataMovie.length;
     }
 
     class RecyclerAdapterViewHolder extends RecyclerView.ViewHolder {
