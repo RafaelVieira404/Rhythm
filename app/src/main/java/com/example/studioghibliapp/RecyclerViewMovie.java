@@ -14,8 +14,7 @@ import com.example.yoursong.R;
 
 public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.RecyclerAdapterViewHolder> {
 
-    public static final  String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
-
+    public static final String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
     private StudioGhPeople[] apiDataMovie;
 
     public RecyclerViewMovie(StudioGhPeople[] apiData) {
@@ -25,7 +24,7 @@ public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.Re
     @Override
     public RecyclerAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_movie_info, parent, false);
+                .inflate(R.layout.recycler_view_horizontal, parent, false);
         return new RecyclerAdapterViewHolder(view);
     }
 
@@ -45,16 +44,13 @@ public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.Re
 
     class RecyclerAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView peopleCover;
         TextView peopleName;
         TextView peopleInfo;
 
         public RecyclerAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            peopleCover = itemView.findViewById(R.id.image_people);
-            peopleName = itemView.findViewById(R.id.people_name);
-            peopleInfo = itemView.findViewById(R.id.people_info);
-
+            peopleName = itemView.findViewById(R.id.character_name);
+            peopleInfo = itemView.findViewById(R.id.character_info);
         }
 
         public void bind(StudioGhPeople data) {

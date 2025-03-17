@@ -22,7 +22,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
 
     private List<StudioGhMovies> localDataset;
     public static final String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
-
+    private static final PicassoSettings picassoSettings = new PicassoSettings(0,0);
     public RecyclerViewMain(List<StudioGhMovies> apiData) {
         localDataset = apiData;
     }
@@ -72,8 +72,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
             movie_title_original.setText(data.getOriginal_title());
             movie_info.setText(data.setInfoText(data.getRelease_date(), data.getRunning_time(), data.getRt_score()));
 //            movie_description.setText(data.setDescriptionText(data.getDescription()));
-            PicassoSettings picassoSettings = new PicassoSettings(6,0);
-            picassoSettings.loadImageIntoContainer(movie_image, data.getImage(), picassoSettings);
+            picassoSettings.loadImageIntoContainer(movie_image, data.getImage(), new PicassoSettings(15,0));
             cardView.setOnClickListener(v -> {
                 Intent intent = MovieActivity.createIntentToMovieInfo(itemView.getContext(), data);
                 itemView.getContext().startActivity(intent);

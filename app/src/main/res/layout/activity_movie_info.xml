@@ -157,30 +157,21 @@
             android:padding="8dp"
             tools:text="Title" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_title_one"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/recycler_view_horizontal" />
+            tools:listitem="@layout/recycler_view_horizontal" >
 
-        <TextView
-            android:id="@+id/title_recycler_view_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            tools:text="Title_2" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:orientation="horizontal"-->
-<!--            android:id="@+id/recycler_title_two"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            tools:listitem="@layout/recycler_view_horizontal" />-->
+
+
+
     </LinearLayout>
+
 
 
 </RelativeLayout>

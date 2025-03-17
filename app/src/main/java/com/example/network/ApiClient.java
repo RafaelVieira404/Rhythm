@@ -35,8 +35,8 @@ public class ApiClient implements Serializable {
 
     private static OkHttpClient client() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(new Interceptor() {
                     @NonNull
                     @Override

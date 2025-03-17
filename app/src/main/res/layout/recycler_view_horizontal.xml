@@ -20,18 +20,18 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp">
 
-            <ImageView
-                android:id="@+id/image_people"
-                android:layout_width="300px"
-                android:layout_height="400px"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/banner_movie"
-                android:contentDescription="TODO"
-                android:scaleType="centerCrop"
-                tools:ignore="ImageContrastCheck" />
+<!--            <ImageView-->
+<!--                android:id="@+id/image_people"-->
+<!--                android:layout_width="300px"-->
+<!--                android:layout_height="400px"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:layout_marginLeft="8dp"-->
+<!--                android:layout_marginRight="8dp"-->
+<!--                android:background="@drawable/banner_movie"-->
+<!--                android:contentDescription="TODO"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                tools:ignore="ImageContrastCheck" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
 
                 <TextView
-                    android:id="@+id/people_name"
+                    android:id="@+id/character_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadline6"
@@ -53,7 +53,7 @@
                     tools:text="Name" />
 
                 <TextView
-                    android:id="@+id/people_info"
+                    android:id="@+id/character_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -65,7 +65,6 @@
                     />
 
             </LinearLayout>
-
 
         </LinearLayout>
 
