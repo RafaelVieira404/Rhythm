@@ -2,12 +2,17 @@ package com.example.studioghibliapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -30,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> ApiData = new ArrayList<>();
-    View view;
 
 
     @Override
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ApiData = response.body();
                     Log.i(TAG, "Successful: " + response.message());
-                    recyclerView();
+                    recyclerViewMovies();
                 } else {
                     Log.e(TAG, "Error: " + response.errorBody());
                 }
@@ -72,11 +77,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void recyclerView() {
-        RecyclerViewMain recyclerViewSetup = new RecyclerViewMain(ApiData);
+    private void recyclerViewMovies() {
+        Drawable bannerDrawable = ContextCompat.getDrawable(this, R.drawable.studio_ghibli_logo);
+        RecyclerViewMain recyclerViewSetup = new RecyclerViewMain(ApiData, bannerDrawable);
         RecyclerView recyclerView = this.findViewById(R.id.recycler_layout);
         recyclerView.setAdapter(recyclerViewSetup);
-    }
 
+    }
 
 }

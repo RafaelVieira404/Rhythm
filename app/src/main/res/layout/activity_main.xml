@@ -5,23 +5,64 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E7E7E1"
     tools:context="com.example.studioghibliapp.MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:background="#38527b"
+        android:elevation="8dp"
+        >
+
+        <TextView
+            android:id="@+id/title_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:textAlignment="textStart"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/app_title_topBar"/>
+
+        <TextView
+            android:id="@+id/subtitle_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textAlignment="textStart"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/title_app"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:text="@string/app_subTitle_topBar"/>
+
+        <ImageView
+            android:layout_width="220px"
+            android:layout_height="150px"
+            android:layout_alignTop="@id/title_app"
+            android:src="@drawable/logo_studio"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+
+
     <LinearLayout
+        android:layout_below="@id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/teste_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textAlignment="center"
-            android:text="Studio Ghibli Movies"
-            >
-
-        </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_layout"
