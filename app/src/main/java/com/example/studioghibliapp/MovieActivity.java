@@ -101,8 +101,7 @@ public class MovieActivity extends AppCompatActivity {
         TextView movieTitle = findViewById(R.id.title_movie_info);
         TextView movieOriginalTitle = findViewById(R.id.original_movie_title);
         TextView movieInfo = findViewById(R.id.movie_description_info);
-        TextView movieDirector = findViewById(R.id.toolbar_text_one);
-        TextView movieProducer = findViewById(R.id.toolbar_text_two);
+        TextView movieDirectorAndProducer = findViewById(R.id.toolbar_text_one);
         TextView movieDescription = findViewById(R.id.movie_description);
         TextView title_recycler_one = findViewById(R.id.title_recycler_view_one);
 
@@ -112,10 +111,8 @@ public class MovieActivity extends AppCompatActivity {
         movieInfo.setText(data.get(index).setInfoText(data.get(index).getRelease_date(), data.get(index).getRunning_time(), data.get(index).getRt_score()));
         title_recycler_one.setText("Teste");
 
-        String director = "<b>" + "Director: " + data.get(index).getDirector();
-        String producer = "<b>" + "Producer: " + data.get(index).getProducer();
-        movieDirector.setText(Html.fromHtml(director, 0));
-        movieProducer.setText(Html.fromHtml(producer, 1));
+        String director = "<b>" + "Director: " + data.get(index).getDirector() + "<b>" + " Producer: " + data.get(index).getProducer();
+        movieDirectorAndProducer.setText(Html.fromHtml(director, 0));
 
 
         picassoSettings.loadImageIntoContainer(movieCover, data.get(index).getImage(), new PicassoSettings(15, 1));

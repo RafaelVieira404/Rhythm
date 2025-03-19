@@ -31,8 +31,11 @@ android {
     }
 }
 
+
 dependencies {
 
+
+    implementation("com.github.parse-community.Parse-SDK-Android:parse:4.3.0")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

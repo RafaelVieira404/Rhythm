@@ -7,12 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/movie_info_main"
+    android:background="#F5F5DC"
     >
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/baseline_favorite_24"
+        android:layout_margin="8dp"
+        />
 
     <ImageView
         android:id="@+id/image_banner"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="240dp"
+        android:elevation="4dp"
         />
 
     <ImageView
@@ -86,56 +97,30 @@
     <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_below="@id/image_banner"
-        >
-
-        <TextView
-            android:id="@+id/toolbar_text_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/banner_movie"
-            android:padding="5dp"
-            android:textSize="13sp"
-            tools:text="Director" />
-
-        <TextView
-            android:id="@+id/toolbar_text_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="8dp"
-            android:padding="5dp"
-            android:background="@drawable/banner_movie"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/toolbar_text_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            android:background="@drawable/banner_movie"
-            android:textSize="13sp" />
-
+        android:background="#2a3c56"
+        android:orientation="horizontal">
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:shadowColor="@color/black"
+        android:elevation="2dp"
+        android:background="#F5F5DC"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/toolbar_text_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:ellipsize="marquee"
+            android:justificationMode="inter_character"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/movie_description"

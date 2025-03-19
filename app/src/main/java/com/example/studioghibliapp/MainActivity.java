@@ -22,6 +22,7 @@ import com.example.database.StudioGhMovies;
 import com.example.network.ApiClient;
 import com.example.network.GetDataFilms;
 import com.example.yoursong.R;
+import com.parse.ParseInstallation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
