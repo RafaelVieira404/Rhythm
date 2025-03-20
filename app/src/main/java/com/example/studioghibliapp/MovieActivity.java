@@ -11,6 +11,7 @@ import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,9 @@ import com.example.database.StudioGhPeople;
 import com.example.network.ApiClient;
 import com.example.network.GetDataPeople;
 import com.example.yoursong.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.parse.ParseObject;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -101,9 +104,9 @@ public class MovieActivity extends AppCompatActivity {
         TextView movieTitle = findViewById(R.id.title_movie_info);
         TextView movieOriginalTitle = findViewById(R.id.original_movie_title);
         TextView movieInfo = findViewById(R.id.movie_description_info);
-        TextView movieDirectorAndProducer = findViewById(R.id.toolbar_text_one);
         TextView movieDescription = findViewById(R.id.movie_description);
         TextView title_recycler_one = findViewById(R.id.title_recycler_view_one);
+        FloatingActionButton favoriteMovie = findViewById(R.id.floating_favorite);
 
         movieDescription.setText(data.get(index).getDescription());
         movieTitle.setText(data.get(index).getTitle());
@@ -112,11 +115,22 @@ public class MovieActivity extends AppCompatActivity {
         title_recycler_one.setText("Teste");
 
         String director = "<b>" + "Director: " + data.get(index).getDirector() + "<b>" + " Producer: " + data.get(index).getProducer();
-        movieDirectorAndProducer.setText(Html.fromHtml(director, 0));
+        movieInfo.setText(Html.fromHtml(director, 0));
 
 
         picassoSettings.loadImageIntoContainer(movieCover, data.get(index).getImage(), new PicassoSettings(15, 1));
         picassoSettings.loadImageIntoContainer(movieBanner, data.get(index).getMovie_banner(), new PicassoSettings(0,0));
+
+        favoriteMovie.setOnClickListener(v -> {
+            ParseObject gameScore = new ParseObject("Movies");
+            gameScore.put("nameMovie", data.get(index).getOriginal_title_romanised());
+            gameScore.put("rottenTomatoesScore", data.get(index).getRt_score());
+            gameScore.put("releaseDate", data.get(index).getRelease_date());
+            gameScore.put("time", data.get(index).getRunning_time());
+            gameScore.saveInBackground();
+
+            Toast.makeText(this, "Filme adicionado aos favoritos", Toast.LENGTH_LONG).show();
+        });
 
     }
 

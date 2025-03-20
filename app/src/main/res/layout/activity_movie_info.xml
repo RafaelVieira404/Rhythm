@@ -7,24 +7,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/movie_info_main"
-    android:background="#F5F5DC"
-    >
+    android:background="#F5F5DC">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:elevation="20dp"
         android:src="@drawable/baseline_favorite_24"
-        android:layout_margin="8dp"
-        />
+        android:layout_margin="12dp"
+        android:backgroundTint="#F8D7B7" />
 
     <ImageView
         android:id="@+id/image_banner"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:layout_marginHorizontal="6dp"
         android:elevation="4dp"
-        />
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/movie_cover"
@@ -36,8 +39,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/title_movie_info"
@@ -48,8 +50,8 @@
         android:layout_marginRight="12dp"
         android:layout_toEndOf="@+id/movie_cover"
         android:elevation="8dp"
-        android:textColor="@color/white"
-        android:shadowColor="@color/black"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="2"
@@ -66,8 +68,8 @@
         android:layout_marginRight="12dp"
         android:elevation="8dp"
         android:layout_toEndOf="@id/movie_cover"
-        android:textColor="@color/white"
-        android:shadowColor="@color/black"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="2"
@@ -84,8 +86,8 @@
         android:layout_toEndOf="@id/movie_cover"
         android:elevation="8dp"
         android:paddingTop="5dp"
-        android:textColor="@color/white"
-        android:shadowColor="@color/black"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="1"
@@ -95,68 +97,76 @@
         tools:text="Info" />
 
     <LinearLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/image_banner"
-        android:background="#2a3c56"
-        android:orientation="horizontal">
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/movie_cover"
         android:shadowColor="@color/black"
         android:elevation="2dp"
-        android:background="#F5F5DC"
+        android:background="#FFF2D7 "
+        android:layout_marginHorizontal="8dp"
         android:orientation="vertical">
 
+
         <TextView
-            android:id="@+id/toolbar_text_one"
-            android:layout_width="wrap_content"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:ellipsize="marquee"
-            android:justificationMode="inter_character"
+            android:paddingTop="5dp"
+            android:paddingHorizontal="5dp"
+            android:elevation="9dp"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
             android:textSize="15sp"
-            />
+            android:textColor="#6F4E37"
+            android:text="Description" />
 
         <TextView
             android:id="@+id/movie_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
             android:paddingHorizontal="5dp"
-            android:paddingBottom="5dp"
             android:elevation="8dp"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:ellipsize="marquee"
+            android:background="@drawable/banner_movie"
+            android:backgroundTint="#FFFFFF"
             android:justificationMode="inter_character"
-            android:textSize="15sp"
+            android:textSize="13sp"
+            android:textColor="#6F4E37"
             tools:text="Description" />
 
         <TextView
             android:id="@+id/title_recycler_view_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            tools:text="Title" />
+            android:paddingTop="5dp"
+            android:paddingHorizontal="5dp"
+            android:elevation="9dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#6F4E37"
+            android:textAllCaps="true"
+            tools:text="actors"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_title_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:background="@drawable/banner_movie"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/recycler_view_horizontal" >
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-
+            tools:listitem="@layout/recycler_view_horizontal"></androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>

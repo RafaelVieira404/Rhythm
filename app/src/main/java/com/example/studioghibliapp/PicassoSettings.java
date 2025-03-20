@@ -6,9 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.yoursong.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 

@@ -23,6 +23,7 @@ import com.example.network.ApiClient;
 import com.example.network.GetDataFilms;
 import com.example.yoursong.R;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         getApiClient();
-
     }
 
 

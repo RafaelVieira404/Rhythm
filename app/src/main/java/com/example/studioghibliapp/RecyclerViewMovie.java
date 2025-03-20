@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.database.StudioGhPeople;
 import com.example.yoursong.R;
+import com.squareup.picasso.Picasso;
 
 public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.RecyclerAdapterViewHolder> {
 
@@ -46,16 +47,22 @@ public class RecyclerViewMovie extends RecyclerView.Adapter<RecyclerViewMovie.Re
 
         TextView peopleName;
         TextView peopleInfo;
+        TextView tittle_actors;
+        ImageView actor_image;
 
         public RecyclerAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            peopleName = itemView.findViewById(R.id.character_name);
-            peopleInfo = itemView.findViewById(R.id.character_info);
+            peopleName = itemView.findViewById(R.id.actor_name);
+            peopleInfo = itemView.findViewById(R.id.actor_info);
+            tittle_actors = itemView.findViewById(R.id.title_recycler_view_one);
+            actor_image = itemView.findViewById(R.id.image_actor);
         }
 
         public void bind(StudioGhPeople data) {
             peopleName.setText(data.getName());
             peopleInfo.setText(data.setInfoText(data.getGender(), data.getAge(), data.getHair_color(), data.getEye_color()));
+            actor_image.setImageResource(R.drawable.totoro);
+
         }
     }
 }
