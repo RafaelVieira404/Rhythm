@@ -2,15 +2,11 @@ package com.example.studioghibliapp;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -18,12 +14,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.database.MovieDataFav;
 import com.example.database.StudioGhMovies;
 import com.example.network.ApiClient;
 import com.example.network.GetDataFilms;
 import com.example.yoursong.R;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> ApiData = new ArrayList<>();
+    private static List<MovieDataFav> movieDataFavs = new ArrayList<>(5);
 
 
     @Override
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<StudioGhMovies>> call, Response<List<StudioGhMovies>> response) {
                 if (response.isSuccessful()) {
                     ApiData = response.body();
+                    getDataParse(ApiData);
                     Log.i(TAG, "Successful: " + response.message());
                     recyclerViewMovies();
                 } else {
@@ -85,6 +85,33 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = this.findViewById(R.id.recycler_layout);
         recyclerView.setAdapter(recyclerViewSetup);
 
+    }
+
+    private void getDataParse(List<StudioGhMovies> data) {
+        for (int i = 0; i < data.size(); i++) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Movies");
+            query.whereEqualTo("nameMovie", data.get(i).getOriginal_title_romanised());
+            query.findInBackground((object, e) -> {
+                if (e == null) {
+                    if (object != null && !object.isEmpty()) {
+                        String idKey = object.get(0).getObjectId();
+                        String movieName = object.get(0).getString("nameMovie");
+                        MovieDataFav movieData = new MovieDataFav(movieName, idKey);
+                        setDataLocal(movieDataFavs, movieData);
+                    }
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            });
+        }
+    }
+
+    private void setDataLocal(List<MovieDataFav> data, MovieDataFav movie) {
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).equals(null)) {
+                data.set(i, movie);
+            }
+        }
     }
 
 }

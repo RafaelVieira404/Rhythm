@@ -16,7 +16,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:elevation="20dp"
-        android:src="@drawable/baseline_favorite_24"
+        android:src="@drawable/baseline_favorite"
         android:layout_margin="12dp"
         android:backgroundTint="#F8D7B7" />
 

@@ -3,7 +3,11 @@ package com.example.parse;
 import android.app.Application;
 
 import com.example.yoursong.R;
+import com.parse.GetCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class ParseServer extends Application {
     @Override

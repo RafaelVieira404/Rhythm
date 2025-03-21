@@ -6,6 +6,7 @@ import static com.example.studioghibliapp.RecyclerViewMovie.EXTRA_MOVIE_DATA;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -26,15 +27,14 @@ import com.example.network.ApiClient;
 import com.example.network.GetDataPeople;
 import com.example.yoursong.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.squareup.picasso.Picasso;
+import com.parse.ParseQuery;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +45,7 @@ public class MovieActivity extends AppCompatActivity {
     private static PicassoSettings picassoSettings = new PicassoSettings(0,0);
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> apiDataMovie = new ArrayList<>();
+    private static String[] favoriteMovieSelected = new String[5];
     StudioGhPeople[] studioGhPeople;
     private static int arraySize = 0;
 
@@ -84,7 +85,7 @@ public class MovieActivity extends AppCompatActivity {
         Intent intent = getIntent();
         apiDataMovie.add(0, intent.getParcelableExtra(EXTRA_MOVIE_DATA));
         getPeopleData(setPeopleDataURL());
-        setupView(apiDataMovie, 0, 0);
+        setupView(apiDataMovie, 0);
 
     }
 
@@ -97,7 +98,7 @@ public class MovieActivity extends AppCompatActivity {
         return true;
     }
 
-    private void setupView(List<StudioGhMovies> data, int index, int position) {
+    private void setupView(List<StudioGhMovies> data, int index) {
 
         ImageView movieBanner = findViewById(R.id.image_banner);
         ImageView movieCover = findViewById(R.id.movie_cover);
@@ -122,14 +123,20 @@ public class MovieActivity extends AppCompatActivity {
         picassoSettings.loadImageIntoContainer(movieBanner, data.get(index).getMovie_banner(), new PicassoSettings(0,0));
 
         favoriteMovie.setOnClickListener(v -> {
-            ParseObject gameScore = new ParseObject("Movies");
-            gameScore.put("nameMovie", data.get(index).getOriginal_title_romanised());
-            gameScore.put("rottenTomatoesScore", data.get(index).getRt_score());
-            gameScore.put("releaseDate", data.get(index).getRelease_date());
-            gameScore.put("time", data.get(index).getRunning_time());
-            gameScore.saveInBackground();
+//                if (validateFavorite(data, index)) {
+//                    favoriteMovie.getDrawable().setTint(Color.parseColor("#D02626"));
+//
+//                    for (int i = 0; i < favoriteMovieSelected.length; i++) {
+//                        if (favoriteMovieSelected[i].isEmpty()) {
+//                            favoriteMovieSelected[i] = data.get(index).getOriginal_title_romanised();
+//                        }
+//                    }
+//
+//
+//                } else  {
+//                    favoriteMovie.getDrawable().setTint(Color.parseColor("#000000"));
+//                }
 
-            Toast.makeText(this, "Filme adicionado aos favoritos", Toast.LENGTH_LONG).show();
         });
 
     }
@@ -183,4 +190,26 @@ public class MovieActivity extends AppCompatActivity {
             });
         }
     }
+
+    private boolean postDataBase(List<StudioGhMovies> data, int index) {
+        AtomicBoolean validation = new AtomicBoolean();
+
+        try {
+            ParseObject gameScore = new ParseObject("Movies");
+            gameScore.put("nameMovie", data.get(index).getOriginal_title_romanised());
+            gameScore.put("rottenTomatoesScore", data.get(index).getRt_score());
+            gameScore.put("releaseDate", data.get(index).getRelease_date());
+            gameScore.put("time", data.get(index).getRunning_time());
+            gameScore.saveInBackground();
+            validation.set(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            validation.set(false);
+        }
+
+        return validation.get();
+    }
+
+
 }
