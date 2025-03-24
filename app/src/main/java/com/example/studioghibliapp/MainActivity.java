@@ -2,6 +2,7 @@ package com.example.studioghibliapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +35,10 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MOVIE_FAV = "EXTRA_MOVIE_FAV";
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> ApiData = new ArrayList<>();
-    private static List<MovieDataFav> movieDataFavs = new ArrayList<>(5);
+    private static ArrayList<MovieDataFav> movieFav;
 
 
     @Override
@@ -63,10 +66,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<StudioGhMovies>> call, Response<List<StudioGhMovies>> response) {
                 if (response.isSuccessful()) {
+                    Log.i(TAG, "Successful: " + response.message());
                     ApiData = response.body();
                     getDataParse(ApiData);
-                    Log.i(TAG, "Successful: " + response.message());
                     recyclerViewMovies();
+
+
+
                 } else {
                     Log.e(TAG, "Error: " + response.errorBody());
                 }
@@ -88,30 +94,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDataParse(List<StudioGhMovies> data) {
+        movieFav = new ArrayList<>(data.size());
+
+
         for (int i = 0; i < data.size(); i++) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Movies");
             query.whereEqualTo("nameMovie", data.get(i).getOriginal_title_romanised());
             query.findInBackground((object, e) -> {
                 if (e == null) {
-                    if (object != null && !object.isEmpty()) {
-                        String idKey = object.get(0).getObjectId();
-                        String movieName = object.get(0).getString("nameMovie");
-                        MovieDataFav movieData = new MovieDataFav(movieName, idKey);
-                        setDataLocal(movieDataFavs, movieData);
+                    for (ParseObject movieObject : object) {
+                        MovieDataFav movieData = new MovieDataFav();
+                        movieData.setMovieKey(movieObject.getObjectId());
+                        movieData.setMovieName(movieObject.getString("nameMovie"));
+                        movieFav.add(movieData);
+
                     }
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
             });
+            intentMovie(movieFav);
         }
     }
 
-    private void setDataLocal(List<MovieDataFav> data, MovieDataFav movie) {
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).equals(null)) {
-                data.set(i, movie);
-            }
-        }
+    private void intentMovie(ArrayList<MovieDataFav> movieFav) {
+        MovieActivity.createIntentForFavorites(this, movieFav);
     }
 
 }

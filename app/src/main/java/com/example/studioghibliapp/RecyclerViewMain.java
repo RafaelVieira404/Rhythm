@@ -22,9 +22,9 @@ import java.util.List;
 
 public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.RecyclerAdapterViewHolder> {
 
+    public static final String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
     private static final int VIEW_TYPE_BANNER = 0;
     private static final int VIEW_TYPE_MOVIE = 1;
-    public static final String EXTRA_MOVIE_DATA = "EXTRA_MOVIE_DATA";
     private List<StudioGhMovies> localDataset;
     private static final PicassoSettings picassoSettings = new PicassoSettings(0, 0);
 
@@ -120,7 +120,7 @@ public class RecyclerViewMain extends RecyclerView.Adapter<RecyclerViewMain.Recy
             }
 
             cardView.setOnClickListener(v -> {
-                Intent intent = MovieActivity.createIntentToMovieInfo(itemView.getContext(), data);
+                Intent intent = MovieActivity.createIntentToMovieInfo(itemView.getContext(),data);
                 itemView.getContext().startActivity(intent);
             });
         }

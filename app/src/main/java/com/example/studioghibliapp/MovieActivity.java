@@ -12,7 +12,6 @@ import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +20,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.database.MovieDataFav;
 import com.example.database.StudioGhMovies;
 import com.example.database.StudioGhPeople;
 import com.example.network.ApiClient;
 import com.example.network.GetDataPeople;
 import com.example.yoursong.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +39,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MovieActivity extends AppCompatActivity {
-    private static PicassoSettings picassoSettings = new PicassoSettings(0,0);
+
+    public static final String EXTRA_MOVIE_FAV = "EXTRA_MOVIE_FAV";
     private static final String URL = "https://ghibliapi.dev";
-    private static List<StudioGhMovies> apiDataMovie = new ArrayList<>();
-    private static String[] favoriteMovieSelected = new String[5];
-    StudioGhPeople[] studioGhPeople;
+    private static final PicassoSettings picassoSettings = new PicassoSettings(0,0);
+    private static final List<StudioGhMovies> apiDataMovie = new ArrayList<>();
+    private static final ArrayList<MovieDataFav> movieDataFav = new ArrayList<>();
+    private static StudioGhPeople[] studioGhPeople;
     private static int arraySize = 0;
 
     public static Intent createIntentToMovieInfo(Context context, StudioGhMovies ghMovies) {
         return new Intent(context, MovieActivity.class)
                 .putExtra(RecyclerViewMain.EXTRA_MOVIE_DATA, ghMovies);
+    }
+
+    public static Intent createIntentForFavorites(Context context, ArrayList<MovieDataFav> movieDataFav) {
+        return new Intent(context, MovieActivity.class)
+                .putExtra(MainActivity.EXTRA_MOVIE_FAV, (CharSequence) movieDataFav);
     }
 
     private static String[] setPeopleDataURL() {
@@ -83,7 +87,8 @@ public class MovieActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        apiDataMovie.add(0, intent.getParcelableExtra(EXTRA_MOVIE_DATA));
+        apiDataMovie.add(intent.getParcelableExtra(EXTRA_MOVIE_DATA));
+        movieDataFav.add(intent.getParcelableExtra(EXTRA_MOVIE_FAV));
         getPeopleData(setPeopleDataURL());
         setupView(apiDataMovie, 0);
 
@@ -122,20 +127,14 @@ public class MovieActivity extends AppCompatActivity {
         picassoSettings.loadImageIntoContainer(movieCover, data.get(index).getImage(), new PicassoSettings(15, 1));
         picassoSettings.loadImageIntoContainer(movieBanner, data.get(index).getMovie_banner(), new PicassoSettings(0,0));
 
+        if (validateFavorite(data, movieDataFav)) {
+            favoriteMovie.getDrawable().setTint(Color.parseColor("#D02626"));
+        } else  {
+            favoriteMovie.getDrawable().setTint(Color.parseColor("#000000"));
+        }
+
         favoriteMovie.setOnClickListener(v -> {
-//                if (validateFavorite(data, index)) {
-//                    favoriteMovie.getDrawable().setTint(Color.parseColor("#D02626"));
-//
-//                    for (int i = 0; i < favoriteMovieSelected.length; i++) {
-//                        if (favoriteMovieSelected[i].isEmpty()) {
-//                            favoriteMovieSelected[i] = data.get(index).getOriginal_title_romanised();
-//                        }
-//                    }
-//
-//
-//                } else  {
-//                    favoriteMovie.getDrawable().setTint(Color.parseColor("#000000"));
-//                }
+
 
         });
 
@@ -209,6 +208,15 @@ public class MovieActivity extends AppCompatActivity {
         }
 
         return validation.get();
+    }
+
+    private Boolean validateFavorite(List<StudioGhMovies> data, ArrayList<MovieDataFav> movieDataFav) {
+        for (int i = 0; i < movieDataFav.size(); i++) {
+            if (data.get(0).getOriginal_title_romanised().equals(movieDataFav.get(i).getMovieName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

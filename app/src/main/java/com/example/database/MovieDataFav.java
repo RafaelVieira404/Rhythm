@@ -2,11 +2,14 @@ package com.example.database;
 
 public class MovieDataFav {
         private String movieName;
-        private String movieScore;
+        private String movieKey;
 
-        public MovieDataFav(String movieName, String movieScore) {
+        public MovieDataFav(String movieName, String movieKey) {
             this.movieName = movieName;
-            this.movieScore = movieScore;
+            this.movieKey = movieKey;
+        }
+
+        public MovieDataFav() {
         }
 
         public String getMovieName() {
@@ -14,6 +17,13 @@ public class MovieDataFav {
         }
 
         public String getMovieIdKey() {
-            return movieScore;
+            return movieKey;
+        }
+
+        public void setMovieName(String movieName) {
+            this.movieName = movieName;
+        }
+        public void setMovieKey(String movieKey) {
+            this.movieKey = movieKey;
         }
 }
