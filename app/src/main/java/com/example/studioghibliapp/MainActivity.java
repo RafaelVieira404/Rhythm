@@ -2,7 +2,9 @@ package com.example.studioghibliapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE_FAV = "EXTRA_MOVIE_FAV";
     private static final String URL = "https://ghibliapi.dev";
     private static List<StudioGhMovies> ApiData = new ArrayList<>();
-    private static ArrayList<MovieDataFav> movieFav;
-
+    private MovieActivity movieActivity = new MovieActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.i(TAG, "Successful: " + response.message());
                     ApiData = response.body();
-                    getDataParse(ApiData);
                     recyclerViewMovies();
+                    movieActivity.getDataParse(ApiData);
 
 
 
@@ -93,32 +94,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getDataParse(List<StudioGhMovies> data) {
-        movieFav = new ArrayList<>(data.size());
-
-
-        for (int i = 0; i < data.size(); i++) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Movies");
-            query.whereEqualTo("nameMovie", data.get(i).getOriginal_title_romanised());
-            query.findInBackground((object, e) -> {
-                if (e == null) {
-                    for (ParseObject movieObject : object) {
-                        MovieDataFav movieData = new MovieDataFav();
-                        movieData.setMovieKey(movieObject.getObjectId());
-                        movieData.setMovieName(movieObject.getString("nameMovie"));
-                        movieFav.add(movieData);
-
-                    }
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            });
-            intentMovie(movieFav);
-        }
-    }
-
-    private void intentMovie(ArrayList<MovieDataFav> movieFav) {
-        MovieActivity.createIntentForFavorites(this, movieFav);
-    }
 
 }
